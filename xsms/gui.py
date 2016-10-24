@@ -4,8 +4,6 @@ from Tkinter import *
 def derp(messages):
     root = Tk()
     header = Frame(root)
-    print("found %d messages", len(messages))
-
     r = 0
     for m in messages:
         Label(header, text=m.sender, anchor="w").grid(row=r,column=0, sticky=W)
