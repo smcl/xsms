@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 """
 __main__.py
 
@@ -17,6 +15,7 @@ from .inbox import (
     read_inbox,
     write_inbox
 )
+from .gui import derp
 
 # system imports
 import argparse
@@ -50,7 +49,7 @@ def check_only(read_format, unread_format, messages):
         print(args.read_format)
 
 def launch_gui(messages):
-    pass
+    derp(messages)
 
 if __name__ == '__main__':
     args = get_args()
