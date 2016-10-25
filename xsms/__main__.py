@@ -12,11 +12,10 @@ Main launch script for xsms system. Has two distinct behaviours - will connect t
 from em73xx import Modem
 
 # local imports
-from .inbox import (
-    read_inbox,
-    write_inbox
-)
-from .gui import derp
+import inbox
+import outbox
+
+from .gui import launch_gui
 
 # system imports
 import argparse
@@ -49,8 +48,6 @@ def check_only(read_format, unread_format, messages):
     else:
         print(args.read_format)
 
-def launch_gui(messages):
-    derp(messages)
 
 if __name__ == '__main__':
     args = get_args()
@@ -61,21 +58,22 @@ if __name__ == '__main__':
     else:
         em7345 = Modem(args.device)
 
-    # read existing messages from inbox.json
-    inbox = read_inbox()
+    # read existing inbox and outbox
+    inbox_messages = inbox.read()
+    outbox_messages = outbox.read()
 
     # retrieve new messages from the modem and add to the inbox
     for m in em7345.getSMS():
-        inbox.append(m)
+        inbox_messages.append(m)
 
     # serialise inbox
-    write_inbox(inbox)
+    inbox.write(inbox_messages)
 
     # clear outstanding messages from SIM
     em7345.deleteAllSMS()
 
     # decide whether to launch the GUI or just check + print unread
     if args.check:
-        check_only(args.read_format, args.unread_format, inbox)
+        check_only(args.read_format, args.unread_format, inbox_messages)
     else:
-        launch_gui(inbox)
+        launch_gui(inbox_messages, outbox_messages)

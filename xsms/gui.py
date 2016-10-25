@@ -1,22 +1,51 @@
 # flake8: noqa
+import ttk
 from Tkinter import *
+from ScrolledText import ScrolledText
 
-# this will get renamed and reworked as the other tabs are implemented
-# but it is derp for now
-def derp(messages):
-    root = Tk()
-    header = Frame(root)
+def mailbox_frame(parent, messages):
+    f = ttk.Frame(parent)
+
     r = 0
     for m in messages:
-        Label(header, text=m.sender, anchor="w").grid(row=r,column=0, sticky=W)
-        Label(header, text=m.date_received, anchor="e").grid(row=r,column=1)
-        msg = Text(header, height=4, width=35)
+        Label(f, text=m.sender, anchor="w").grid(row=r,column=0, sticky=W)
+        Label(f, text=m.date_received, anchor="e").grid(row=r,column=1)
+        msg = Text(f, height=4, width=35)
         msg.grid(row=r+1, column=0, columnspan=2)
         msg.insert("1.0", m.message)
         msg.config(state=DISABLED)
 
         r = r + 2
 
-    header.pack()
+    return f
 
-    mainloop()
+def inbox_frame(parent, messages):
+    return mailbox_frame(parent, messages)
+
+
+def outbox_frame(parent, messages):
+    return mailbox_frame(parent, messages)
+
+
+def compose_frame(parent):
+    f = ttk.Frame(parent)
+    return f
+
+
+def launch_gui(inbox_messages, outbox_messages):
+    root = Tk()
+    root.title("ttk.Notebook")
+
+    nb = ttk.Notebook(root)
+
+    inbox_f = inbox_frame(nb, inbox_messages)
+    outbox_f = outbox_frame(nb, outbox_messages)
+    compose_f = compose_frame(nb)
+
+    nb.add(inbox_f, text="Inbox")
+    nb.add(outbox_f, text="Sent")
+    nb.add(compose_f, text="Compose")
+
+    nb.pack(expand=1, fill="both")
+
+    root.mainloop()

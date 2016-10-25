@@ -1,6 +1,6 @@
 from setuptools import setup
 
-current_version = '0.1'
+current_version = '0.2'
 
 setup(
     name = 'xsms',
@@ -13,7 +13,7 @@ setup(
     download_url = 'https://github.com/smcl/xsms/tarball/%s' % (current_version),
     keywords = ['thinkpad', 'em7345', 'em73xx','sms','xmonad','xmobar'],
     classifiers = [],
-    #test_suite='em73xx.test.all',
+    #test_suite='xsms.test.all',
     install_requires=[
         'unittest2',
         'em73xx'
