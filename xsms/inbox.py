@@ -1,9 +1,7 @@
 import json
-import time
 import os
-import sys
-
 from em73xx import SMS
+
 
 def get_inbox_path():
     xsms_path = os.path.join(os.path.expanduser('~'), ".xsms")
@@ -13,6 +11,7 @@ def get_inbox_path():
     inbox_path = os.path.join(xsms_path, "inbox.json")
 
     return inbox_path
+
 
 def read_inbox():
 
@@ -28,6 +27,7 @@ def read_inbox():
                 inbox.append(SMS.fromJson(sms_json))
 
     return inbox
+
 
 def write_inbox(inbox):
     inbox_path = get_inbox_path()

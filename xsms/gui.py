@@ -1,6 +1,8 @@
-from Tkinter import *
+# flake8: noqa
+from Tkinter import (
 
-# i have no idea how ot call this
+# this will get renamed and reworked as the other tabs are implemented
+# but it is derp for now
 def derp(messages):
     root = Tk()
     header = Frame(root)
