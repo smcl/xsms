@@ -1,5 +1,5 @@
 # flake8: noqa
-from Tkinter import (
+from Tkinter import *
 
 # this will get renamed and reworked as the other tabs are implemented
 # but it is derp for now
