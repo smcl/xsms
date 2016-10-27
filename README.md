@@ -1,6 +1,6 @@
 # xsms
 
-A simple SMS client written in Python + Tkinter which uses the em73xx library. Primary use is for xmonad and xmobar.
+A simple SMS client written in Python + Tkinter which uses the em73xx library. Primarily designed to be integrated with xmonad and xmobar, but equally valid elsewhere.
 
 ## TODO
 
@@ -50,14 +50,14 @@ xsms - an sms client for linux systems with an em73xx modem
 
 optional arguments:
   -h, --help            show this help message and exit
-  --device DEVICE       the modem device, like /dev/ttyACM0
-  --gui                 show the SMS gui
-  --pin PIN             the pin for the SMS
-  --read_format READ_FORMAT
+  -d DEVICE, --device DEVICE
+                        the modem device, like /dev/ttyACM0
+  -g, --gui             show the SMS gui
+  -p PIN, --pin PIN     the pin for the SMS
+  -r READ_FORMAT, --read_format READ_FORMAT
                         string to print if there are no unread messages
-  --unread_format UNREAD_FORMAT
+  -u UNREAD_FORMAT, --unread_format UNREAD_FORMAT
                         format string to print if there are unread messages
-
 ```
 
 ## Problems
