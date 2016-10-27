@@ -39,14 +39,33 @@ $ python -m xsms --device=/dev/ttyACM0
 
 ## Using
 
-(TODO)
+(TODO - do more than dump --help)
+
+```
+$ python -m xsms --help
+usage: __main__.py [-h] [--device DEVICE] [--gui] [--pin PIN]
+                   [--read_format READ_FORMAT] [--unread_format UNREAD_FORMAT]
+
+xsms - an sms client for linux systems with an em73xx modem
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --device DEVICE       the modem device, like /dev/ttyACM0
+  --gui                 show the SMS gui
+  --pin PIN             the pin for the SMS
+  --read_format READ_FORMAT
+                        string to print if there are no unread messages
+  --unread_format UNREAD_FORMAT
+                        format string to print if there are unread messages
+
+```
 
 ## Problems
 
 If you've having a problem like the below...
 
 ```
-[sean@seoul xsms]$ python -m xsms --device /dev/ttyACM0 --pin 1234
+$ python -m xsms --device /dev/ttyACM0 --pin 1234
 Traceback (most recent call last):
   File "/usr/lib/python2.7/runpy.py", line 174, in _run_module_as_main
       "__main__", fname, loader, pkg_name)
