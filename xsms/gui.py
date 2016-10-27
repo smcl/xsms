@@ -1,21 +1,22 @@
 # flake8: noqa
 import ttk
-from Tkinter import *
+import Tkinter
 from datetime import datetime
 from em73xx import SMS
 import outbox
+import style
 
 def mailbox_frame(parent, messages):
     f = ttk.Frame(parent)
 
     r = 0
     for m in messages:
-        Label(f, text=m.sender, anchor="w").grid(row=r,column=0, sticky=W)
-        Label(f, text=m.date_received, anchor="e").grid(row=r,column=1)
-        msg = Text(f, height=4, width=35)
+        ttk.Label(f, text=m.sender, anchor="w").grid(row=r,column=0, sticky=Tkinter.W)
+        ttk.Label(f, text=m.date_received, anchor="e").grid(row=r,column=1)
+        msg = style.Text(f, 4, 35)
         msg.grid(row=r+1, column=0, columnspan=2)
         msg.insert("1.0", m.message)
-        msg.config(state=DISABLED)
+        msg.config(state=Tkinter.DISABLED)
 
         r = r + 2
 
@@ -31,6 +32,9 @@ def create_outbox_frame(parent, messages):
 
 # this is some nasty shit
 def sendmsg(recipient, message, modem):
+    if not recipient.strip() or not message.strip():
+        return
+
     modem.sendSMS(str(recipient), str(message))
     outbox_messages = outbox.read()
     outbox_messages.append(
@@ -41,31 +45,32 @@ def sendmsg(recipient, message, modem):
 def create_compose_frame(parent, modem):
     f = ttk.Frame(parent)
 
-    recipient_input = Entry(f, width=35)
-    message_input = Text(f, height=4, width=35)
-    send_button = Button(f, text="Send", command=lambda: sendmsg(recipient_input.get(), message_input.get("1.0", END), modem))
+    recipient_input = ttk.Entry(f, width=30)
+    message_input = style.Text(f, 4, 30)
+    send_button = ttk.Button(f, text="Send", command=lambda: sendmsg(recipient_input.get(), message_input.get("1.0", END), modem))
 
     # if we haven't initialised a device, we can't send anything
     if not modem:
         message_input.insert("1.0", "No modem initialised, start xsms with the --device switch if you want to send messages")
-        recipient_input.config(state=DISABLED)
-        message_input.config(state=DISABLED)
-        send_button.config(state=DISABLED)
+        recipient_input.config(state=Tkinter.DISABLED)
+        message_input.config(state=Tkinter.DISABLED)
+        send_button.config(state=Tkinter.DISABLED)
 
-
-
-    recipient_input.pack(fill=X)
-    message_input.pack(fill=X)
-    send_button.pack()
+    recipient_input.pack(fill=Tkinter.X)
+    message_input.pack(fill=Tkinter.X)
+    send_button.pack(fill=Tkinter.X)
 
     return f
 
 
 def launch_gui(inbox_messages, outbox_messages, modem):
-    root = Tk()
+    root = Tkinter.Tk()
     root.title("xsms")
 
     nb = ttk.Notebook(root)
+
+    #style.configure(ttk.Style())
+    #ttk.Style().theme_use("classic")
 
     inbox_frame = create_inbox_frame(nb, inbox_messages)
     outbox_frame = create_outbox_frame(nb, outbox_messages)

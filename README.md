@@ -7,6 +7,8 @@ A simple SMS client written in Python + Tkinter which uses the em73xx library. P
 * clean-up the UI, make it match the xmonad style I have and give inbox a scrollbar
 * refresh the outbox when you have sent a message
 * fill out the (TODO) sections below
+* reply, mark as [un]read, delete/archive functionality
+* window should be fixed-height and have a scrollbar
 
 ## Install
 
