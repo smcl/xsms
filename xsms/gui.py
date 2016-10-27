@@ -12,7 +12,7 @@ def mailbox_frame(parent, messages):
     r = 0
     for m in messages:
         ttk.Label(f, text=m.sender, anchor="w").grid(row=r,column=0, sticky=Tkinter.W)
-        ttk.Label(f, text=m.date_received, anchor="e").grid(row=r,column=1)
+        ttk.Label(f, text=m.date_received.strftime('%d/%m/%Y %H:%M'), anchor="e").grid(row=r,column=1)
         msg = style.Text(f, 4, 35)
         msg.grid(row=r+1, column=0, columnspan=2)
         msg.insert("1.0", m.message)
