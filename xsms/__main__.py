@@ -53,24 +53,21 @@ if __name__ == '__main__':
     args = get_args()
 
     # initialise the device
-    if args.pin:
-        em7345 = Modem(args.device, pin=args.pin)
-    else:
-        em7345 = Modem(args.device)
+    modem = Modem(args.device, pin=args.pin)
 
     # read existing inbox and outbox
     inbox_messages = inbox.read()
     outbox_messages = outbox.read()
 
     # retrieve new messages from the modem and add to the inbox
-    for m in em7345.getSMS():
+    for m in modem.getSMS():
         inbox_messages.append(m)
 
     # serialise inbox
     inbox.write(inbox_messages)
 
     # clear outstanding messages from SIM
-    em7345.deleteAllSMS()
+    modem.deleteAllSMS()
 
     # decide whether to launch the GUI or just check + print unread
     if args.check:

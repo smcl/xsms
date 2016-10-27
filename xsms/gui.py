@@ -1,7 +1,7 @@
 # flake8: noqa
 import ttk
 from Tkinter import *
-from ScrolledText import ScrolledText
+
 
 def mailbox_frame(parent, messages):
     f = ttk.Frame(parent)
@@ -19,32 +19,32 @@ def mailbox_frame(parent, messages):
 
     return f
 
-def inbox_frame(parent, messages):
+def create_inbox_frame(parent, messages):
     return mailbox_frame(parent, messages)
 
 
-def outbox_frame(parent, messages):
+def create_outbox_frame(parent, messages):
     return mailbox_frame(parent, messages)
 
 
-def compose_frame(parent):
+def create_compose_frame(parent):
     f = ttk.Frame(parent)
     return f
 
 
 def launch_gui(inbox_messages, outbox_messages):
     root = Tk()
-    root.title("ttk.Notebook")
+    root.title("xsms")
 
     nb = ttk.Notebook(root)
 
-    inbox_f = inbox_frame(nb, inbox_messages)
-    outbox_f = outbox_frame(nb, outbox_messages)
-    compose_f = compose_frame(nb)
+    inbox_frame = create_inbox_frame(nb, inbox_messages)
+    outbox_frame = create_outbox_frame(nb, outbox_messages)
+    compose_frame = create_compose_frame(nb)
 
-    nb.add(inbox_f, text="Inbox")
-    nb.add(outbox_f, text="Sent")
-    nb.add(compose_f, text="Compose")
+    nb.add(inbox_frame, text="Inbox")
+    nb.add(outbox_frame, text="Sent")
+    nb.add(compose_frame, text="Compose")
 
     nb.pack(expand=1, fill="both")
 
