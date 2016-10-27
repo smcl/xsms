@@ -30,13 +30,13 @@ def get_args():
     )
 
     # optional switches
-    parser.add_argument('--device', action='store')
-    parser.add_argument('--gui', action='store_true')
+    parser.add_argument('--device', action='store', help="the modem device, like /dev/ttyACM0")
+    parser.add_argument('--gui', action='store_true', help="show the SMS gui")
 
     # optional args
-    parser.add_argument('--pin', action='store', default="")
-    parser.add_argument('--read_format', action='store', default="(empty)")
-    parser.add_argument('--unread_format', action='store', default="%d")
+    parser.add_argument('--pin', action='store', default="", help="the pin for the SMS")
+    parser.add_argument('--read_format', action='store', default="(empty)", help="string to print if there are no unread messages")
+    parser.add_argument('--unread_format', action='store', default="%d", help="format string to print if there are unread messages")
 
     return parser.parse_args()
 
