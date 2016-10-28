@@ -4,7 +4,7 @@ A simple SMS client written in Python + Tkinter which uses the em73xx library. T
 
 ## TODO
 
-* clean-up the UI, make it match the xmonad style I have and give inbox a scrollbar
+* clean-up the UI, make it match the xmonad style I have and give inbox a scrollbar: http://stackoverflow.com/questions/16188420/python-tkinter-scrollbar-for-frame
 * fill out the (TODO) sections below
 * reply, mark as [un]read, delete/archive functionality
 * window should be fixed-height and have a scrollbar
@@ -24,7 +24,10 @@ $ cd xsms
 $ python setup.py install
 ```
 
-Then you can either launch it standalone ...
+
+## Using
+
+Once xsms is installed you can either launch it standalone ...
 
 ```
 $ python -m xsms --device=/dev/ttyACM0
@@ -48,12 +51,6 @@ This will result in an xmobar entry like the below:
 ```
 
 ![xsms-outbox.png](xsms-outbox.png?raw=true)
-
-(TODO)
-
-## Using
-
-(TODO - do more than dump --help)
 
 ```
 $ python -m xsms --help
