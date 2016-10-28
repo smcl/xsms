@@ -22,8 +22,8 @@ class GUI(object):
         #ttk.Style().theme_use("classic")
 
         # create frames
-        self.inbox_frame = self.create_inbox_frame(nb, inbox.read())
-        self.outbox_frame = self.create_outbox_frame(nb, outbox.read())
+        self.inbox_frame = self.mailbox_frame(nb, inbox.read())
+        self.outbox_frame = self.mailbox_frame(nb, outbox.read())
         self.compose_frame = self.create_compose_frame(nb)
 
         # add frames to the notebook
@@ -35,7 +35,9 @@ class GUI(object):
         nb.pack(expand=1, fill="both")
         root.mainloop()
 
-    def populate_messages(self, f, messages):
+    def mailbox_frame(self, parent, messages):
+        f = ttk.Frame(parent)
+
         r = 0
         for m in messages:
             ttk.Label(f, text=m.sender, anchor="w").grid(row=r,column=0, sticky=Tkinter.W)
@@ -44,19 +46,9 @@ class GUI(object):
             msg.grid(row=r+1, column=0, columnspan=2)
             msg.insert("1.0", m.message)
             msg.config(state=Tkinter.DISABLED)
-
             r = r + 2
 
-    def mailbox_frame(self, parent, messages):
-        f = ttk.Frame(parent)
-        self.populate_messages(f, messages)
         return f
-
-    def create_inbox_frame(self, parent, messages):
-        return self.mailbox_frame(parent, messages)
-
-    def create_outbox_frame(self, parent, messages):
-        return self.mailbox_frame(parent, messages)
 
     def create_compose_frame(self, parent):
         f = ttk.Frame(parent)

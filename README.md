@@ -1,11 +1,10 @@
 # xsms
 
-A simple SMS client written in Python + Tkinter which uses the em73xx library. Primarily designed to be integrated with xmonad and xmobar, but equally valid elsewhere.
+A simple SMS client written in Python + Tkinter which uses the em73xx library. The functionality it provides is mainly for use with xmobar - a text-mode summary so you can quickly see any unread messages, and a lightweight GUI to read and send messages.
 
 ## TODO
 
 * clean-up the UI, make it match the xmonad style I have and give inbox a scrollbar
-* refresh the outbox when you have sent a message
 * fill out the (TODO) sections below
 * reply, mark as [un]read, delete/archive functionality
 * window should be fixed-height and have a scrollbar
@@ -34,8 +33,21 @@ $ python -m xsms --device=/dev/ttyACM0
 ... or add it to xmobarrc
 
 ```
-      Run Com "/usr/bin/python" [ "python", "-m", "xsms", "--device", "/dev/ttyACM0", "--pin", "1234" ] "xsms" 600,
+  -- assumes you have Font Awesome installed and used here:
+  -- additionalFonts = ["xft:FontAwesome-10"],
+  Run Com "/usr/bin/python" [ "-m", "xsms", "-d", "/dev/ttyACM0", "-p", "1234", "-r", "<fn=1></fn>", "-u", "<fn=1></fn> %d" ] "xsms" 600,
 ```
+
+This will result in an xmobar entry like the below:
+
+![xsms-xmobar.png](xsms-xmobar.png?raw=true)
+
+... and if you want to be able to click the icon to raise the GUI, you can:
+```
+  template = "%StdinReader% }{ ... stuff ... <action=`python -m xsms -g -d /dev/ttyACM0 -p 1234`>%xsms%</action> ... "
+```
+
+![xsms-outbox.png](xsms-outbox.png?raw=true)
 
 (TODO)
 

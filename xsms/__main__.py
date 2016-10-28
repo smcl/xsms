@@ -44,7 +44,6 @@ if __name__ == '__main__':
 
     # initialise the device
     if args.device:
-
         modem = Modem(args.device, pin=args.pin)
     else:
         modem = None
