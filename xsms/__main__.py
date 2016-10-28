@@ -14,14 +14,12 @@ from em73xx import Modem
 # local imports
 import inbox
 import outbox
-
-from .gui import launch_gui
+from .gui import GUI
+from .textui import TextUI
 
 # system imports
 import argparse
 
-# there's gotta be a better way than a global...
-modem = None
 
 def get_args():
     parser = argparse.ArgumentParser(
@@ -41,38 +39,18 @@ def get_args():
     return parser.parse_args()
 
 
-def print_unread_messages(read_format, unread_format, messages):
-    unread_count = len([m for m in messages if not m.read])
-
-    if unread_count:
-        print(args.unread_format % (unread_count))
-    else:
-        print(args.read_format)
-
-
 if __name__ == '__main__':
     args = get_args()
 
-    # read existing inbox and outbox
-    inbox_messages = inbox.read()
-    outbox_messages = outbox.read()
-
-    # retrieve new messages from the modem and add to the inbox
+    # initialise the device
     if args.device:
-        # initialise the device
+
         modem = Modem(args.device, pin=args.pin)
-
-        for m in modem.getSMS():
-            inbox_messages.append(m)
-
-            # serialise inbox
-            inbox.write(inbox_messages)
-
-            # clear outstanding messages from SIM
-            modem.deleteAllSMS()
+    else:
+        modem = None
 
     # decide whether to launch the GUI or just check + print unread
     if args.gui:
-        launch_gui(inbox_messages, outbox_messages, modem)
+        GUI(modem).show()
     else:
-        print_unread_messages(args.read_format, args.unread_format, inbox_messages)
+        TextUI(modem).show(args.read_format, args.unread_format)

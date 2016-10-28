@@ -3,16 +3,17 @@ import ttk
 import Tkinter
 from datetime import datetime
 from em73xx import SMS
+import inbox
 import outbox
 import style
 
 
-class Gui(object):
+class GUI(object):
 
     def __init__(self, modem):
         self.modem = modem
 
-    def show(self, inbox_messages, outbox_messages):
+    def show(self):
         root = Tkinter.Tk()
         root.title("xsms")
         nb = ttk.Notebook(root)
@@ -21,8 +22,8 @@ class Gui(object):
         #ttk.Style().theme_use("classic")
 
         # create frames
-        self.inbox_frame = self.create_inbox_frame(nb, inbox_messages)
-        self.outbox_frame = self.create_outbox_frame(nb, outbox_messages)
+        self.inbox_frame = self.create_inbox_frame(nb, inbox.read())
+        self.outbox_frame = self.create_outbox_frame(nb, outbox.read())
         self.compose_frame = self.create_compose_frame(nb)
 
         # add frames to the notebook
@@ -100,8 +101,3 @@ class Gui(object):
         self.message_input.insert("1.0", "")
         self.recipient_input.delete(0, Tkinter.END)
         self.recipient_input.insert(0, "")
-
-
-def launch_gui(inbox_messages, outbox_messages, modem):
-    ui = Gui(modem)
-    ui.show(inbox_messages, outbox_messages)
