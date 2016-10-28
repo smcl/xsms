@@ -19,6 +19,7 @@ bodyFont = ("Source Code Pro", 10)
 
 xsms_style = "xsms"
 
+# flake8: noqa
 style_applied = False
 
 
