@@ -1,6 +1,6 @@
 # xsms
 
-A simple SMS client written in Python + Tkinter which uses the em73xx library. The functionality it provides is mainly for use with xmobar - a text-mode summary so you can quickly see any unread messages, and a lightweight GUI to read and send messages.
+A simple SMS client written in Python + Tkinter which uses the em73xx library. Originally written for my Thinkpad X250 (which uses this chip) it was mainly written for use with xmobar - with a text-mode summary so you can quickly see any unread messages, and a lightweight GUI to read and send messages.
 
 ## TODO
 
