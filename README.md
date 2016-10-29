@@ -48,7 +48,7 @@ This will result in an xmobar entry like the below:
   template = "%StdinReader% }{ ... stuff ... <action=`python -m xsms -g -d /dev/ttyACM0 -p 1234`>%xsms%</action> ... "
 ```
 
-![xsms-outbox.png](xsms-outbox.png?raw=true)
+![xsms-inbox.png](xsms-inbox.png?raw=true)
 
 For a quick reference of the switches and parameters supported, invoke `python -m xms --help`:
 ```
