@@ -48,9 +48,10 @@ class VerticalScrolledFrame(Tkinter.Frame):
 
         # create a canvas object and a vertical scrollbar for scrolling it
         vscrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
-        vscrollbar.pack(fill=Tkinter.Y, side=Tkinter.RIGHT, expand=Tkinter.FALSE)
+        vscrollbar.pack(fill=Tkinter.Y, side=Tkinter.RIGHT,
+                        expand=Tkinter.FALSE)
         canvas = Tkinter.Canvas(self, bd=0, highlightthickness=0,
-                        yscrollcommand=vscrollbar.set)
+                                yscrollcommand=vscrollbar.set)
         canvas.pack(side=Tkinter.LEFT, fill=Tkinter.BOTH, expand=Tkinter.TRUE)
         vscrollbar.config(command=canvas.yview)
 
