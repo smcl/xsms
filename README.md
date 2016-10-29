@@ -4,10 +4,8 @@ A simple SMS client written in Python + Tkinter which uses the em73xx library. T
 
 ## TODO
 
-* clean-up the UI, make it match the xmonad style I have and give inbox a scrollbar: http://stackoverflow.com/questions/16188420/python-tkinter-scrollbar-for-frame
-* fill out the (TODO) sections below
+* clean-up the UI, make it match the xmonad style I have (using ttk style in xsms/style.py)
 * reply, mark as [un]read, delete/archive functionality
-* window should be fixed-height and have a scrollbar
 
 ## Install
 
@@ -33,7 +31,7 @@ Once xsms is installed you can either launch it standalone ...
 $ python -m xsms --device=/dev/ttyACM0
 ```
 
-... or add it to xmobarrc
+... or add it to xmobarrc, like the below (which takes advantage of the ability to specify the font via <fn> tags to easily get some icons from Font Awesome):
 
 ```
   -- assumes you have Font Awesome installed and used here:
@@ -52,23 +50,21 @@ This will result in an xmobar entry like the below:
 
 ![xsms-outbox.png](xsms-outbox.png?raw=true)
 
+For a quick reference of the switches and parameters supported, invoke `python -m xms --help`:
 ```
 $ python -m xsms --help
-usage: __main__.py [-h] [--device DEVICE] [--gui] [--pin PIN]
-                   [--read_format READ_FORMAT] [--unread_format UNREAD_FORMAT]
+usage: __main__.py [-h] [-d DEVICE] [-g] [-p PIN] [-r READ_FORMAT]
+                   [-u UNREAD_FORMAT]
 
 xsms - an sms client for linux systems with an em73xx modem
 
 optional arguments:
   -h, --help            show this help message and exit
   -d DEVICE, --device DEVICE
-                        the modem device, like /dev/ttyACM0
-  -g, --gui             show the SMS gui
-  -p PIN, --pin PIN     the pin for the SMS
+  -g, --gui
+  -p PIN, --pin PIN
   -r READ_FORMAT, --read_format READ_FORMAT
-                        string to print if there are no unread messages
   -u UNREAD_FORMAT, --unread_format UNREAD_FORMAT
-                        format string to print if there are unread messages
 ```
 
 ## Problems
