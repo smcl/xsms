@@ -90,7 +90,7 @@ module>
 serial.serialutil.SerialException: [Errno 16] could not open port /dev/ttyACM0: [Errno 16] Device or resource busy: '/dev/ttyACM0'
 ```
 
-... then it's possible that the ModemManager service is accessing the device already. Kill it off and retry:
+... then it's possible that the ModemManager service is accessing the device already. It's not currently possible to use em73xx together with the modem. You can kill it off and retry:
 
 ```
 $ sudo systemctl stop ModemManager
