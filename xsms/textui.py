@@ -20,11 +20,9 @@ class TextUI(object):
             print(read_format)
 
     def read_from_sim(self, messages):
-        for m in self.modem.getSMS():
-            messages.append(m)
+        new_messages = self.modem.getSMS()
 
-            # serialise inbox
-            inbox.write(messages)
-
-            # clear outstanding messages from SIM
+        if new_messages:
+            messages.append(new_messages)
+            inbox.append(messages)
             self.modem.deleteAllSMS()
