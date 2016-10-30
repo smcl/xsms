@@ -1,6 +1,14 @@
 from setuptools import setup
 
-current_version = '0.3'
+# make it easy to bump versions
+current_version = '0.4'
+
+# convert from github markdown to rst
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
 
 setup(
     name = 'xsms',
@@ -22,5 +30,5 @@ setup(
         'unittest2',
         'em73xx'
     ],
-
+    long_description=long_description
 )
