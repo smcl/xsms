@@ -7,11 +7,9 @@ import inbox
 import outbox
 import style
 from utils import VerticalScrolledFrame
+from ui import UI
 
-class GUI(object):
-
-    def __init__(self, modem):
-        self.modem = modem
+class GUI(UI):
 
     def show(self):
         root = Tkinter.Tk()
