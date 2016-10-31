@@ -9,6 +9,25 @@ import style
 from utils import VerticalScrolledFrame
 from ui import UI
 
+# ideally this would subclass ttk.Frame and initialise it using super() but apparently
+# ttk.Frame is an old style object ("class Frame:" vs "class Frame(object):" which
+# super() doesn't play nice with :-/
+class MessageFrame(object):
+    def __init__(self, parent, message):
+        #super(MessageFrame, self).__init__(parent)
+        self.frame = ttk.Frame(parent)
+
+        ttk.Label(self.frame, text=message.sender, anchor="w").grid(row=0,column=0, sticky=Tkinter.W)
+        ttk.Label(self.frame, text=message.date_received.strftime('%d/%m/%Y %H:%M'), anchor="e").grid(row=0,column=1)
+        msg = style.Text(self.frame, 4, 35)
+        msg.grid(row=1, column=0, columnspan=2)
+        msg.insert("1.0", message.message)
+        msg.config(state=Tkinter.DISABLED)
+
+    def pack(self):
+        self.frame.pack()
+
+
 class GUI(UI):
 
     def show(self):
@@ -35,17 +54,8 @@ class GUI(UI):
 
     def mailbox_frame(self, parent, messages):
         f = VerticalScrolledFrame(parent)
-
-        r = 0
         for m in messages:
-            ttk.Label(f.interior, text=m.sender, anchor="w").grid(row=r,column=0, sticky=Tkinter.W)
-            ttk.Label(f.interior, text=m.date_received.strftime('%d/%m/%Y %H:%M'), anchor="e").grid(row=r,column=1)
-            msg = style.Text(f.interior, 4, 35)
-            msg.grid(row=r+1, column=0, columnspan=2)
-            msg.insert("1.0", m.message)
-            msg.config(state=Tkinter.DISABLED)
-            r = r + 2
-
+            MessageFrame(f.interior, m).pack()
         return f
 
     def create_compose_frame(self, parent):
