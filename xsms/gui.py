@@ -14,7 +14,6 @@ from ui import UI
 # super() doesn't play nice with :-/
 class MessageFrame(object):
     def __init__(self, parent, message):
-        #super(MessageFrame, self).__init__(parent)
         self.frame = ttk.Frame(parent)
 
         ttk.Label(self.frame, text=message.sender, anchor="w").grid(row=0,column=0, sticky=Tkinter.W)
@@ -23,6 +22,7 @@ class MessageFrame(object):
         msg.grid(row=1, column=0, columnspan=2)
         msg.insert("1.0", message.message)
         msg.config(state=Tkinter.DISABLED)
+        ttk.Separator(self.frame, orient=Tkinter.HORIZONTAL).grid(row=2, columnspan=2, sticky="ew", padx=10, pady=5)
 
     def pack(self):
         self.frame.pack()
