@@ -9,6 +9,7 @@ import style
 from utils import VerticalScrolledFrame
 from ui import UI
 
+
 # ideally this would subclass ttk.Frame and initialise it using super() but apparently
 # ttk.Frame is an old style object ("class Frame:" vs "class Frame(object):" which
 # super() doesn't play nice with :-/
@@ -22,11 +23,27 @@ class MessageFrame(object):
         msg.grid(row=1, column=0, columnspan=2)
         msg.insert("1.0", message.message)
         msg.config(state=Tkinter.DISABLED)
-        ttk.Separator(self.frame, orient=Tkinter.HORIZONTAL).grid(row=2, columnspan=2, sticky="ew", padx=10, pady=5)
+
+        MessageActionsFrame(self.frame).grid(2, 0, 1)
+
+        ttk.Separator(self.frame, orient=Tkinter.HORIZONTAL).grid(row=3, columnspan=2, sticky="ew", pady=5)
 
     def pack(self):
         self.frame.pack()
 
+
+# as above, this should subclass ttk.Frame, but it doesn't due to ttk's
+# use of old-style objects
+class MessageActionsFrame(object):
+    def __init__(self, parent):
+        self.frame = ttk.Frame(parent)
+
+        ttk.Button(self.frame, text="reply", width=4).pack(side=Tkinter.LEFT)
+        ttk.Button(self.frame, text="read", width=4).pack(side=Tkinter.LEFT)
+        ttk.Button(self.frame, text="del", width=3).pack(side=Tkinter.LEFT)
+
+    def grid(self, row, col, colspan):
+        self.frame.grid(row=row, column=col, columnspan=colspan)
 
 class GUI(UI):
 
