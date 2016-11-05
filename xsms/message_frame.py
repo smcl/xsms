@@ -8,7 +8,7 @@ from .message_actions_frame import MessageActionsFrame
 # ttk.Frame is an old style object ("class Frame:" vs "class Frame(object):" which
 # super() doesn't play nice with :-/
 class MessageFrame(object):
-    def __init__(self, parent, modem, message, show_actions):
+    def __init__(self, parent, modem, message, show_actions, reply_method):
         self.frame = ttk.Frame(parent)
         self.modem = modem
 
@@ -20,7 +20,7 @@ class MessageFrame(object):
         msg.config(state=Tkinter.DISABLED)
 
         if show_actions:
-            MessageActionsFrame(self.frame).grid(2, 0, 1)
+            MessageActionsFrame(self.frame, lambda: reply_method(message.sender)).grid(2, 0, 1)
 
         ttk.Separator(self.frame, orient=Tkinter.HORIZONTAL).grid(row=3, columnspan=2, sticky="ew", pady=5)
 

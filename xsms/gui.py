@@ -49,8 +49,13 @@ class GUI(UI):
     def mailbox_frame(self, parent, messages, show_actions):
         f = VerticalScrolledFrame(parent)
         for m in messages:
-            MessageFrame(f.interior, self.modem, m, show_actions).pack()
+            MessageFrame(f.interior, self.modem, m, show_actions, self.reply).pack()
         return f
+
+    def reply(self, number):
+        self.switch_tab("Compose")
+        self.recipient_input.delete(0, Tkinter.END)
+        self.recipient_input.insert(0, number)
 
     def create_compose_frame(self, parent):
         f = ttk.Frame(parent)

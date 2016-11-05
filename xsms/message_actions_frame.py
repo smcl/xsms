@@ -4,10 +4,10 @@ import Tkinter
 # as above, this should subclass ttk.Frame, but it doesn't due to ttk's
 # use of old-style objects
 class MessageActionsFrame(object):
-    def __init__(self, parent):
+    def __init__(self, parent, reply_method):
         self.frame = ttk.Frame(parent)
 
-        ttk.Button(self.frame, text="reply", width=4).pack(side=Tkinter.LEFT)
+        ttk.Button(self.frame, text="reply", width=4, command=reply_method).pack(side=Tkinter.LEFT)
         ttk.Button(self.frame, text="read", width=4).pack(side=Tkinter.LEFT)
         ttk.Button(self.frame, text="del", width=3).pack(side=Tkinter.LEFT)
 
