@@ -19,16 +19,15 @@ class GUI(UI):
     def show(self):
         root = Tkinter.Tk()
         root.title("xsms")
-        nb = ttk.Notebook(root)
-        self.nb = nb # temp
+        self.nb = ttk.Notebook(root)
 
         #style.configure(ttk.Style())
         #ttk.Style().theme_use("classic")
 
         # create frames
-        self.inbox_frame = self.mailbox_frame(nb, inbox.read(), True)
-        self.outbox_frame = self.mailbox_frame(nb, outbox.read(), False)
-        self.compose_frame = self.create_compose_frame(nb)
+        self.inbox_frame = self.mailbox_frame(self.nb, inbox.read(), True)
+        self.outbox_frame = self.mailbox_frame(self.nb, outbox.read(), False)
+        self.compose_frame = self.create_compose_frame(self.nb)
 
         # add frames as tabs to the notebook
         self.add_tab("Inbox", self.inbox_frame)
@@ -36,7 +35,7 @@ class GUI(UI):
         self.add_tab("Compose", self.compose_frame)
 
         # render the main window
-        nb.pack(expand=1, fill="both")
+        self.nb.pack(expand=1, fill="both")
         root.mainloop()
 
     def add_tab(self, name, frame):
