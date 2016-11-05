@@ -8,42 +8,7 @@ import outbox
 import style
 from utils import VerticalScrolledFrame
 from ui import UI
-
-
-# ideally this would subclass ttk.Frame and initialise it using super() but apparently
-# ttk.Frame is an old style object ("class Frame:" vs "class Frame(object):" which
-# super() doesn't play nice with :-/
-class MessageFrame(object):
-    def __init__(self, parent, message):
-        self.frame = ttk.Frame(parent)
-
-        ttk.Label(self.frame, text=message.sender, anchor="w").grid(row=0,column=0, sticky=Tkinter.W)
-        ttk.Label(self.frame, text=message.date_received.strftime('%d/%m/%Y %H:%M'), anchor="e").grid(row=0,column=1)
-        msg = style.Text(self.frame, 4, 35)
-        msg.grid(row=1, column=0, columnspan=2)
-        msg.insert("1.0", message.message)
-        msg.config(state=Tkinter.DISABLED)
-
-        MessageActionsFrame(self.frame).grid(2, 0, 1)
-
-        ttk.Separator(self.frame, orient=Tkinter.HORIZONTAL).grid(row=3, columnspan=2, sticky="ew", pady=5)
-
-    def pack(self):
-        self.frame.pack()
-
-
-# as above, this should subclass ttk.Frame, but it doesn't due to ttk's
-# use of old-style objects
-class MessageActionsFrame(object):
-    def __init__(self, parent):
-        self.frame = ttk.Frame(parent)
-
-        ttk.Button(self.frame, text="reply", width=4).pack(side=Tkinter.LEFT)
-        ttk.Button(self.frame, text="read", width=4).pack(side=Tkinter.LEFT)
-        ttk.Button(self.frame, text="del", width=3).pack(side=Tkinter.LEFT)
-
-    def grid(self, row, col, colspan):
-        self.frame.grid(row=row, column=col, columnspan=colspan)
+from .message_frame import MessageFrame
 
 class GUI(UI):
 
@@ -56,8 +21,8 @@ class GUI(UI):
         #ttk.Style().theme_use("classic")
 
         # create frames
-        self.inbox_frame = self.mailbox_frame(nb, inbox.read())
-        self.outbox_frame = self.mailbox_frame(nb, outbox.read())
+        self.inbox_frame = self.mailbox_frame(nb, inbox.read(), True)
+        self.outbox_frame = self.mailbox_frame(nb, outbox.read(), False)
         self.compose_frame = self.create_compose_frame(nb)
 
         # add frames to the notebook
@@ -69,10 +34,10 @@ class GUI(UI):
         nb.pack(expand=1, fill="both")
         root.mainloop()
 
-    def mailbox_frame(self, parent, messages):
+    def mailbox_frame(self, parent, messages, show_actions):
         f = VerticalScrolledFrame(parent)
         for m in messages:
-            MessageFrame(f.interior, m).pack()
+            MessageFrame(f.interior, self.modem, m, show_actions).pack()
         return f
 
     def create_compose_frame(self, parent):
