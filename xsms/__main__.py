@@ -25,12 +25,13 @@ def get_args():
 
     return parser.parse_args()
 
+def get_ui(args):
+    if args.gui:
+        return GUI(args)
+    return TextUI(args)
+
 
 if __name__ == '__main__':
     args = get_args()
-
-    # decide whether to launch the GUI or just check + print unread
-    if args.gui:
-        GUI(args).show()
-    else:
-        TextUI(args).show()
+    ui = get_ui(args)
+    ui.show()

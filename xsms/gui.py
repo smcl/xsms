@@ -12,10 +12,15 @@ from .message_frame import MessageFrame
 
 class GUI(UI):
 
+    def __init__(self, args):
+        super(GUI, self).__init__(args)
+        self.tab_id = {}
+
     def show(self):
         root = Tkinter.Tk()
         root.title("xsms")
         nb = ttk.Notebook(root)
+        self.nb = nb # temp
 
         #style.configure(ttk.Style())
         #ttk.Style().theme_use("classic")
@@ -25,14 +30,21 @@ class GUI(UI):
         self.outbox_frame = self.mailbox_frame(nb, outbox.read(), False)
         self.compose_frame = self.create_compose_frame(nb)
 
-        # add frames to the notebook
-        nb.add(self.inbox_frame, text="Inbox")
-        nb.add(self.outbox_frame, text="Sent")
-        nb.add(self.compose_frame, text="Compose")
+        # add frames as tabs to the notebook
+        self.add_tab("Inbox", self.inbox_frame)
+        self.add_tab("Sent", self.outbox_frame)
+        self.add_tab("Compose", self.compose_frame)
 
         # render the main window
         nb.pack(expand=1, fill="both")
         root.mainloop()
+
+    def add_tab(self, name, frame):
+        self.nb.add(frame, text=name)
+        self.tab_id[name] = self.nb.tabs()[-1]
+
+    def switch_tab(self, name):
+        self.nb.select(self.tab_id[name])
 
     def mailbox_frame(self, parent, messages, show_actions):
         f = VerticalScrolledFrame(parent)
