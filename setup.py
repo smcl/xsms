@@ -1,7 +1,7 @@
 from setuptools import setup
 
 # make it easy to bump versions
-current_version = '0.5'
+current_version = '0.6'
 
 # convert from github markdown to rst
 try:
