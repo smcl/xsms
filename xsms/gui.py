@@ -3,7 +3,6 @@ import ttk
 import Tkinter
 from datetime import datetime
 from em73xx import SMS
-import inbox
 import outbox
 import style
 from utils import VerticalScrolledFrame
@@ -20,10 +19,9 @@ class GUI(UI):
     def show(self):
         root = Tkinter.Tk()
         root.title("xsms")
-        self.nb = ttk.Notebook(root)
-
         #style.configure(ttk.Style())
-        #ttk.Style().theme_use("classic")
+
+        self.nb = ttk.Notebook(root)
 
         # create frames
         self.inbox_frame = self.mailbox_frame(self.nb, self.refresh_messages(), True)

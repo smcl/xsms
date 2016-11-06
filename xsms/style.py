@@ -26,24 +26,26 @@ style_applied = False
 def configure(style):
     style_applied = True
 
-    # style.theme_create(xsms_style, parent="alt")
+    style.theme_create(xsms_style, parent="alt")
+    style.theme_use(xsms_style)
 
-    # style.configure("TLabel", foreground=fg_color, background=bg_color)
-    # style.configure("TEntry", foreground=fg_color, background=bg_color)
+    style.configure('.', font=bodyFont)
+    style.configure("TLabel", foreground=fg_color, background=bg_color)
+    style.configure("TEntry", foreground=fg_color, background=bg_color)
     # style.configure("TButton", foreground=fg_color, background=bg_color)
     # style.configure("TNotebook", foreground=fg_color, background=bg_color)
-    # style.configure("TFrame", foreground=fg_color, background=bg_color)
+    style.configure("TFrame", foreground=fg_color, background=bg_color)
     style.configure(".", foreground=fg_color, background=bg_color)
-    # style.configure(".", relief="flat")
+    style.configure(".", relief="flat")
 
     # style the notebook tabs
     style.configure("TNotebook", background=bg_color)
     style.map("TNotebook.Tab",
               background=[("selected", mid_color)],
-              foreground=[("selected", bright_color)])
+              foreground=[("selected", bright_color)],
+              font=[("selected", headFont)]
+    )
     style.configure("TNotebook.Tab", background=bg_color, foreground=fg_color)
-
-    # style.theme_use(xsms_style)
 
 
 def Text(parent, height, width):
