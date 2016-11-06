@@ -11,7 +11,7 @@ def read():
 
 def append(messages):
     new_inbox = read()
-    new_inbox.append(messages)
+    new_inbox += messages
     write(new_inbox)
 
 

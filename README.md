@@ -22,7 +22,6 @@ $ cd xsms
 $ python setup.py install
 ```
 
-
 ## Using
 
 Once xsms is installed you can either launch it standalone ...

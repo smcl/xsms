@@ -10,6 +10,7 @@ from utils import VerticalScrolledFrame
 from ui import UI
 from .message_frame import MessageFrame
 
+
 class GUI(UI):
 
     def __init__(self, args):
@@ -25,7 +26,7 @@ class GUI(UI):
         #ttk.Style().theme_use("classic")
 
         # create frames
-        self.inbox_frame = self.mailbox_frame(self.nb, inbox.read(), True)
+        self.inbox_frame = self.mailbox_frame(self.nb, self.refresh_messages(), True)
         self.outbox_frame = self.mailbox_frame(self.nb, outbox.read(), False)
         self.compose_frame = self.create_compose_frame(self.nb)
 
@@ -47,9 +48,12 @@ class GUI(UI):
 
     def mailbox_frame(self, parent, messages, show_actions):
         f = VerticalScrolledFrame(parent)
-        for m in messages:
-            MessageFrame(f.interior, self.modem, m, show_actions, self.reply).pack()
+        self.populate_messages(f.interior, messages, show_actions)
         return f
+
+    def populate_messages(self, parent, messages, show_actions):
+        for m in messages:
+            MessageFrame(parent, self.modem, m, show_actions, self.reply).pack()
 
     def reply(self, number):
         self.switch_tab("Compose")
@@ -92,7 +96,7 @@ class GUI(UI):
             widget.destroy()
 
         # and refresh it with the new inbox
-        self.populate_messages(self.outbox_frame, outbox.read())
+        self.populate_messages(self.outbox_frame, outbox.read(), False)
 
         # clear the compose frame
         self.message_input.delete("1.0", Tkinter.END)

@@ -25,6 +25,7 @@ def get_args():
 
     return parser.parse_args()
 
+
 def get_ui(args):
     if args.gui:
         return GUI(args)

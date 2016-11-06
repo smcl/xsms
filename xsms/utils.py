@@ -20,17 +20,19 @@ def read_messages(filename):
 
     if os.path.exists(messages_path):
         with open(messages_path) as messages_file:
-            raw_messages = json.load(messages_file)
+            raw_messages = messages_file.read()
 
-            for sms_json in raw_messages:
-                messages.append(SMS.fromJson(sms_json))
+            if raw_messages:
+                json_messages = json.loads(raw_messages)
+
+                for sms_json in json_messages:
+                    messages.append(SMS.fromJson(sms_json))
 
     return messages
 
 
 def write_messages(filename, messages):
     messages_path = os.path.join(get_xsms_folder(), filename)
-
     with open(messages_path, "w") as messages_file:
         messages_file.write(json.dumps([m.toJson() for m in messages]))
 
