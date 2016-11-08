@@ -9,6 +9,11 @@ from utils import VerticalScrolledFrame
 from ui import UI
 from .message_frame import MessageFrame
 
+window_title= "xsms"
+inbox_label = "Inbox"
+sent_label = "Sent"
+compose_label = "Compose"
+
 
 class GUI(UI):
 
@@ -18,7 +23,7 @@ class GUI(UI):
 
     def show(self):
         root = Tkinter.Tk()
-        root.title("xsms")
+        root.title(window_title)
         #style.configure(ttk.Style())
 
         self.nb = ttk.Notebook(root)
@@ -29,9 +34,9 @@ class GUI(UI):
         self.compose_frame = self.create_compose_frame(self.nb)
 
         # add frames as tabs to the notebook
-        self.add_tab("Inbox", self.inbox_frame)
-        self.add_tab("Sent", self.outbox_frame)
-        self.add_tab("Compose", self.compose_frame)
+        self.add_tab(inbox_label, self.inbox_frame)
+        self.add_tab(sent_label, self.outbox_frame)
+        self.add_tab(compose_label, self.compose_frame)
 
         # render the main window
         self.nb.pack(expand=1, fill="both")
@@ -54,7 +59,7 @@ class GUI(UI):
             MessageFrame(parent, self.modem, m, show_actions, self.reply).pack()
 
     def reply(self, number):
-        self.switch_tab("Compose")
+        self.switch_tab(compose_label)
         self.recipient_input.delete(0, Tkinter.END)
         self.recipient_input.insert(0, number)
 
